@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gráficos e Tabelas</title>
+    <!-- Bibliotecas para estilos e gráficos -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+    <div class="container my-5">
+        <h1 class="text-center">Dados do Banco</h1>
+        <!-- Gráfico -->
+        <h2 class="my-4">Gráfico de Foguetes por Data</h2>
+        <canvas id="graficoFoguetes"></canvas>
+
+        <!-- Tabela -->
+        <h2 class="my-4">Tabela de Lançamentos</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Foguete</th>
+                    <th>Data</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>LANÇAMENTO - MISSÃO THURAYA 4 - NGS</td>
+                    <td>FALCON 9</td>
+                    <td>2025-01-03</td>
+                </tr>
+                <tr>
+                    <td>STARLINK GRUPO 6-71</td>
+                    <td>FALCON 9</td>
+                    <td>2025-01-06</td>
+                </tr>
+                <tr>
+                    <td>STARLINK GRUPO 12-11</td>
+                    <td>FALCON 9</td>
+                    <td>2025-01-08</td>
+                </tr>
+                <tr>
+                    <td>LANÇAMENTO FOGUETE CHINÊS MOSTRADO NO FIM DA LIVE DO FALCON 9</td>
+                    <td>FOGUETE CHINÊS</td>
+                    <td>2025-01-08</td>
+                </tr>
+                <tr>
+                    <td>MISSÃO NROL - 153</td>
+                    <td>FALCON 9</td>
+                    <td>2025-01-10</td>
+                </tr>
+                <tr>
+                    <td>STARLINK GRUPO 12-12</td>
+                    <td>FALCON 9</td>
+                    <td>2025-01-10</td>
+                </tr>
+                <tr>
+                    <td>LANÇAMENTO CHINÊS</td>
+                    <td>SMART DRAGON 3</td>
+                    <td>2025-01-12</td>
+                </tr>
+                <tr>
+                    <td>ESTRÉIA NEW GLENN</td>
+                    <td>NEW GLENN</td>
+                    <td>2025-01-13</td>
+                </tr>
+                <tr>
+                    <td>TRANSPORTER 12</td>
+                    <td>FALCON 9</td>
+                    <td>2025-01-14</td>
+                </tr>
+                <tr>
+                    <td>MISSÕES PARA LUA - BLUE GHOST MISSION 1 e HAKUTO-R M2 RESILENCE</td>
+                    <td>FALCON 9</td>
+                    <td>2025-01-15</td>
+                </tr>
+                <tr>
+                    <td>NEW GLENN - SEGUNDA TENTATIVA</td>
+                    <td>NEW GLENN</td>
+                    <td>2025-01-16</td>
+                </tr>
+                <tr>
+                    <td>A NOVA VERSÃO DO MAIOR FOGUETE DO MUNDO</td>
+                    <td>STARSHIP 7</td>
+                    <td>2025-01-16</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Script para Gráfico -->
+    <script>
+        // Dados do banco
+        const dadosLançamentos = [
+            { nome: "LANÇAMENTO - MISSÃO THURAYA 4 - NGS", foguete: "FALCON 9", data: "2025-01-03" },
+            { nome: "STARLINK GRUPO 6-71", foguete: "FALCON 9", data: "2025-01-06" },
+            { nome: "STARLINK GRUPO 12-11", foguete: "FALCON 9", data: "2025-01-08" },
+            { nome: "LANÇAMENTO FOGUETE CHINÊS MOSTRADO NO FIM DA LIVE DO FALCON 9", foguete: "FOGUETE CHINÊS", data: "2025-01-08" },
+            { nome: "MISSÃO NROL - 153", foguete: "FALCON 9", data: "2025-01-10" },
+            { nome: "STARLINK GRUPO 12-12", foguete: "FALCON 9", data: "2025-01-10" },
+            { nome: "LANÇAMENTO CHINÊS", foguete: "SMART DRAGON 3", data: "2025-01-12" },
+            { nome: "ESTRÉIA NEW GLENN", foguete: "NEW GLENN", data: "2025-01-13" },
+            { nome: "TRANSPORTER 12", foguete: "FALCON 9", data: "2025-01-14" },
+            { nome: "MISSÕES PARA LUA - BLUE GHOST MISSION 1 e HAKUTO-R M2 RESILENCE", foguete: "FALCON 9", data: "2025-01-15" },
+            { nome: "NEW GLENN - SEGUNDA TENTATIVA", foguete: "NEW GLENN", data: "2025-01-16" },
+            { nome: "A NOVA VERSÃO DO MAIOR FOGUETE DO MUNDO", foguete: "STARSHIP 7", data: "2025-01-16" }
+        ];
+
+        // Preparar os dados para o gráfico
+        const foguetes = [...new Set(dadosLançamentos.map(l => l.foguete))]; // Tipos de foguetes
+        const contagemFoguetes = foguetes.map(foguete => dadosLançamentos.filter(l => l.foguete === foguete).length);
+
+        // Criar o gráfico
+        const ctx = document.getElementById('graficoFoguetes').getContext('2d');
+        const grafico = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: foguetes,
+                datasets: [{
+                    label: 'Quantidade de Lançamentos',
+                    data: contagemFoguetes,
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+
+</html>
