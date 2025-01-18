@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tabela e Gráficos - Lançamentos</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        table th, table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+
+        table th {
+            background-color: #f4f4f4;
+            text-align: left;
+        }
+
+        #grafico1, #grafico2 {
+            display: block;
+            margin: 20px auto;
+            width: 600px;
+            height: 400px;
+        }
+
+        .titulo-centralizado {
+            text-align: center;
+            font-size: 20px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tabela Lançamentos Space Today</h1>
+
+    <!-- Tabela de dados -->
+    <table>
+        <thead>
+            <tr>
+                <th>Nome_live</th>
+                <th>Foguete</th>
+                <th>Data</th>
+                <th>Partiu</th>
+                <th>Scrub</th>
+                <th>Explodiu</th>
+                <th>Elon_Musk</th>
+                <th>Outros</th>
+                <th>Alcântara</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Adicione os dados da tabela manualmente ou dinamicamente se necessário -->
+            <tr>
+                <td>Live Teste</td>
+                <td>Falcon 9</td>
+                <td>10/01/2025</td>
+                <td>Sim</td>
+                <td>Não</td>
+                <td>Não</td>
+                <td>Sim</td>
+                <td>Não</td>
+                <td>Sim</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <!-- Gráfico 1 -->
+    <h2 class="titulo-centralizado">Status dos Lançamentos</h2>
+    <canvas id="grafico1"></canvas>
+
+    <script>
+        // Dados para o gráfico 1
+        const data1 = {
+            labels: ['Partiu', 'Scrub', 'Explodiu'],
+            datasets: [{
+                label: 'Total',
+                data: [5, 3, 2], // Substitua pelos seus valores reais
+                backgroundColor: ['#00ff00', '#ffff00', '#ff0000'],
+                borderColor: ['#00ff00', '#ffff00', '#ff0000'],
+                borderWidth: 1
+            }]
+        };
+
+        // Configuração do gráfico 1
+        const config1 = {
+            type: 'bar', // Tipo de gráfico (barra)
+            data: data1,
+            options: {
+                plugins: {
+                    legend: { display: false } // Remove a legenda
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true // Começa do zero no eixo Y
+                    }
+                }
+            }
+        };
+
+        // Renderiza o gráfico 1
+        new Chart(
+            document.getElementById('grafico1'),
+            config1
+        );
+    </script>
+
+    <!-- Gráfico 2 -->
+    <h2 class="titulo-centralizado">Status Bases</h2>
+    <canvas id="grafico2"></canvas>
+
+    <script>
+        // Dados para o gráfico 2
+        const data2 = {
+            labels: ['Elon_Musk', 'Outros', 'Alcantara'],
+            datasets: [{
+                label: 'Total',
+                data: [4, 3, 5], // Substitua pelos seus valores reais
+                backgroundColor: ['#00ff00', '#ffff00', '#ff0000'],
+                borderColor: ['#00ff00', '#ffff00', '#ff0000'],
+                borderWidth: 1
+            }]
+        };
+
+        // Configuração do gráfico 2
+        const config2 = {
+            type: 'doughnut', // Tipo de gráfico (rosca)
+            data: data2,
+            options: {
+                plugins: {
+                    legend: { display: false } // Remove a legenda
+                }
+            }
+        };
+
+        // Renderiza o gráfico 2
+        new Chart(
+            document.getElementById('grafico2'),
+            config2
+        );
+    </script>
+</body>
+</html>
